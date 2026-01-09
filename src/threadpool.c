@@ -115,7 +115,7 @@ void threadpool_destroy(threadpool_t* pool) {
 void threadpool_add_task(threadpool_t* pool, void (*function)(void*), void* arg) {
 
 	
-	if (pool == NULL) {
+	if (pool == NULL || pool->stop) {
 		return;
 	}
 

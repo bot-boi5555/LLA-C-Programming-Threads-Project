@@ -7,24 +7,30 @@
 
 int main (int argc, char* argv[]) {
 
-	threadpool_t* pool = NULL;
+	threadpool_t pool;
 
 
-	threadpool_init(pool);
-
+	threadpool_init(&pool);
+	
 	
 	for (int i = 0; i < QUEUE_SIZE; ++i) {
 
 		int* num = malloc(sizeof(int));
 		*num = i;
 
-		threadpool_add_task(pool, example_task, (void*) num);
+		threadpool_add_task(&pool, example_task, (void*) num);
 
 	}
 
 	sleep(10); // to ensure that all tasks are completed
 
-	threadpool_destroy(pool);
+	threadpool_destroy(&pool);
+	threadpool_destroy(&pool);
+
+	int* num = malloc(sizeof(int));
+		*num = 1;
+
+		threadpool_add_task(&pool, example_task, (void*) num);
 
 	return 0;
 }
