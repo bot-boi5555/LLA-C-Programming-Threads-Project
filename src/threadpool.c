@@ -125,7 +125,7 @@ void threadpool_add_task(threadpool_t* pool, void (*function)(void*), void* arg)
 void example_task(void* arg) {
 
 	if (arg == NULL) {
-		retrun;
+		return;
 	}
 	
 	int* numPtr = (int*) arg;
