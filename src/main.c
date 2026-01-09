@@ -9,11 +9,12 @@ int main (int argc, char* argv[]) {
 
 	threadpool_t pool;
 
+	
 
 	threadpool_init(&pool);
 	
 	
-	for (int i = 0; i < 100000; ++i) {
+	for (int i = 0; i < QUEUE_SIZE; ++i) {
 
 		int* num = malloc(sizeof(int));
 		*num = i;

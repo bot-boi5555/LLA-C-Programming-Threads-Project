@@ -54,6 +54,8 @@ void* threadpool_function(void* threadpool) {
 		// case 3: there is a task in the queue
 		task_t task = pool->task_queue[pool->queue_front];
 
+		memset(&(pool->task_queue[pool->queue_front]), 0, sizeof(task_t));
+
 		pool->queue_front = (pool->queue_front + 1) % QUEUE_SIZE;
 		pool->queued--;
 
@@ -77,6 +79,8 @@ void threadpool_init(threadpool_t* pool) {
 	pool->queue_back = 0;
 	pool->queue_front = 0;
 	pool->stop = 0;
+
+	memset(pool->task_queue, 0, QUEUE_SIZE * sizeof(task_t));
 
 	pthread_mutex_init(&(pool->lock), NULL);
 	pthread_cond_init(&(pool->notify), NULL);
@@ -121,7 +125,7 @@ void threadpool_add_task(threadpool_t* pool, void (*function)(void*), void* arg)
 
 	pthread_mutex_lock(&(pool->lock));
 
-	if (pool->queued < QUEUE_SIZE-20) {
+	if (pool->queued < QUEUE_SIZE || (pool->task_queue[pool->queue_back].fn != 0 && pool->task_queue[pool->queue_back].arg != 0)) {
 
 		pool->task_queue[pool->queue_back].fn = function;
 		pool->task_queue[pool->queue_back].arg = arg;
