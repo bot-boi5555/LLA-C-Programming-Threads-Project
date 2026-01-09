@@ -8,7 +8,7 @@
 #include <pthread.h>
 
 #define THREADS 16
-#define QUEUE_SIZE 128
+#define QUEUE_SIZE 120
 
 typedef struct {
 	void (*fn)(void* arg);
@@ -125,8 +125,7 @@ void threadpool_add_task(threadpool_t* pool, void (*function)(void*), void* arg)
 
 	pthread_mutex_lock(&(pool->lock));
 
-	if (pool->queued < QUEUE_SIZE && 
-		pool->queue_back < QUEUE_SIZE) {
+	if (pool->queued < QUEUE_SIZE) {
 
 		pool->task_queue[pool->queue_back].fn = function;
 		pool->task_queue[pool->queue_back].arg = arg;
