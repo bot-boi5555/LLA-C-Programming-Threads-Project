@@ -13,7 +13,7 @@ int main (int argc, char* argv[]) {
 	threadpool_init(&pool);
 	
 	
-	for (int i = 0; i < QUEUE_SIZE; ++i) {
+	for (int i = 0; i < 100000; ++i) {
 
 		int* num = malloc(sizeof(int));
 		*num = i;
