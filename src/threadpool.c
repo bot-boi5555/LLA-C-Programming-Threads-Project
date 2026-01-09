@@ -32,6 +32,10 @@ void* threadpool_function(void* threadpool) {
 
 	threadpool_t* pool = (threadpool_t*) threadpool;
 
+	if (pool == NULL) {
+		return NULL;
+	}
+
 	while(true) {
 
 		pthread_mutex_lock(&(pool->lock)); // lock the other threads to avoid unwanted modifications
@@ -64,6 +68,11 @@ void* threadpool_function(void* threadpool) {
 
 void threadpool_init(threadpool_t* pool) {
 
+	
+	if (pool == NULL) {
+		return;
+	}
+
 	pool->queued = 0;
 	pool->queue_back = 0;
 	pool->queue_front = 0;
@@ -80,6 +89,11 @@ void threadpool_init(threadpool_t* pool) {
 
 
 void threadpool_destroy(threadpool_t* pool) {
+
+	
+	if (pool == NULL) {
+		return;
+	}
 
 	pthread_mutex_lock(&(pool->lock));
 	
@@ -99,6 +113,11 @@ void threadpool_destroy(threadpool_t* pool) {
 
 
 void threadpool_add_task(threadpool_t* pool, void (*function)(void*), void* arg) {
+
+	
+	if (pool == NULL) {
+		return;
+	}
 
 	pthread_mutex_lock(&(pool->lock));
 
