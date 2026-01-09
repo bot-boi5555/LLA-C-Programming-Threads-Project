@@ -32,6 +32,10 @@ void* threadpool_function(void* threadpool) {
 
 	threadpool_t* pool = (threadpool_t*) threadpool;
 
+	if (pool == NULL) {
+		return;
+	}
+
 	while(true) {
 
 		pthread_mutex_lock(&(pool->lock)); // lock the other threads to avoid unwanted modifications
