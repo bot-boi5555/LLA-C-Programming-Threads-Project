@@ -25,12 +25,6 @@ int main (int argc, char* argv[]) {
 	sleep(10); // to ensure that all tasks are completed
 
 	threadpool_destroy(&pool);
-	threadpool_destroy(&pool);
-
-	int* num = malloc(sizeof(int));
-		*num = 1;
-
-		threadpool_add_task(&pool, example_task, (void*) num);
 
 	return 0;
 }
