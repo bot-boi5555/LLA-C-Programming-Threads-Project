@@ -121,7 +121,7 @@ void threadpool_add_task(threadpool_t* pool, void (*function)(void*), void* arg)
 
 	pthread_mutex_lock(&(pool->lock));
 
-	if (pool->queued <= QUEUE_SIZE) {
+	if (pool->queued < QUEUE_SIZE-1) {
 
 		pool->task_queue[pool->queue_back].fn = function;
 		pool->task_queue[pool->queue_back].arg = arg;
